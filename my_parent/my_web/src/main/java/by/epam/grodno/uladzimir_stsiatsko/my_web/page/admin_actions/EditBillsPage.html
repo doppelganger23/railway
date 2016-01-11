@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.editBillsPage" /></h2>
+	<table>
+		<thead>
+			<tr>
+				<th wicket:id="sortBillId"><wicket:message key="paging.billId" /></th>
+				<th wicket:id="sortPaymentValue"><wicket:message key="paging.paymentValue" /></th>
+				<th wicket:id="sortCurrencyOfPayment"><wicket:message key="paging.currencyOfPayment" /></th>
+				<th wicket:id="sortBillingNumber"><wicket:message key="paging.billingNumber" /></th>
+				<th wicket:id="sortCreationDate"><wicket:message key="paging.creationDate" /></th>
+				<th wicket:id="sortIsPaid"><wicket:message key="paging.isPaid" /></th>
+				<th wicket:id="sortFirstName"><wicket:message key="paging.firstName" /></th>
+				<th wicket:id="sortLastName"><wicket:message key="paging.lastName" /></th>
+				<th wicket:id="sortEmail"><wicket:message key="paging.email" /></th>
+				<th><wicket:message key="mark.actions" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="bill-info-list">
+				<td><span wicket:id="billId"></span></td>
+				<td><span wicket:id="paymentValue"></span></td>
+				<td><span wicket:id="currencyOfPayment"></span></td>
+				<td><span wicket:id="billingNumber"></span></td>
+				<td><span wicket:id="creationDate"></span></td>
+				<td><span wicket:id="isPaid"></span></td>
+				<td><span wicket:id="firstName"></span></td>
+				<td><span wicket:id="lastName"></span></td>
+				<td><span wicket:id="email"></span></td>
+				<td><button type="button" wicket:id="set-paid-link"><wicket:message key="button.setPaid" /></button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+	<label><wicket:message key="label.elementsOnPage" /></label><a wicket:id="5-elements-link">5</a>&nbsp<a wicket:id="10-elements-link">10</a>&nbsp<a wicket:id="20-elements-link">20</a>
+</wicket:extend>

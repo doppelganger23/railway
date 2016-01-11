@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.updateTrainPage" /></h2>
+	<form wicket:id="update-form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.trainNumber" /></label></td>
+				<td><input wicket:id="new-train-number" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.passengersCapacity" /></label></td>
+				<td><input wicket:id="new-passengers-capacity" type="number" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-update"><wicket:message key="button.updateTrain" /></button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div> 
+</wicket:extend>

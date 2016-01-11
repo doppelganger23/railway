@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>
+		<wicket:message key="header.loginPage" />
+	</h2>
+
+	<form wicket:id="login-form">
+		<table>
+			<tr>
+				<td><wicket:message key="mark.login" /></td>
+				<td><input type="text" wicket:id="login" /></td>
+			</tr>
+			<tr>
+				<td><wicket:message key="mark.password" /></td>
+				<td><input type="password" wicket:id="password" /></td>
+			</tr>
+		</table>
+		<button type="submit" wicket:id="submit">
+			<wicket:message key="button.submit" />
+		</button>
+	</form>
+	<br />
+	<div wicket:id="feedback"></div>
+	<table>
+		<tr>
+			<th><wicket:message key="msg.haveAcc" /></th>
+			<th><button type="submit" wicket:id="register">
+					<wicket:message key="button.register" />
+				</button></th>
+		</tr>
+	</table>
+</wicket:extend>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.updateAccPage" /></h2>
+	<form wicket:id="update-form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.login" /></label></td>
+				<td><input wicket:id="new-login" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.firstName" /></label></td>
+				<td><input wicket:id="new-first-name" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.lastName" /></label></td>
+				<td><input wicket:id="new-last-name" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.email" /></label></td>
+				<td><input wicket:id="new-email" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.accessLevel" /></label></td>
+				<td><select wicket:id="new-access-level"></select></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-update"><wicket:message key="button.updateAcc" /></button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div> 
+</wicket:extend>

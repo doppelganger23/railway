@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.editBlocksPage" /></h2>
+	<form wicket:id="form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.departureStation" /></label></td>
+				<td><select wicket:id="departure-station-choice"></select></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.destinationStation" /></label></td>
+				<td><select wicket:id="destination-station-choice"></select></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.distanceInKm" /></label></td>
+				<td><input wicket:id="distance" type="number" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-button"><wicket:message key="button.addBlock" /></button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div>
+	<table>
+		<thead>
+			<tr>
+				<th wicket:id="sortId"><wicket:message key="paging.id" /></th>
+				<th wicket:id="sortDepartureStationName"><wicket:message key="paging.departureStationName" /></th>
+				<th wicket:id="sortDestinationStationName"><wicket:message key="paging.destinationStationName" /></th>
+				<th wicket:id="sortDistanceInKilometres"><wicket:message key="paging.distanceInKilometres" /></th>
+				<th><wicket:message key="mark.actions" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="blocks-info-list">
+				<td><span wicket:id="id"></span></td>
+				<td><span wicket:id="departureStationName"></span></td>
+				<td><span wicket:id="destinationStationName"></span></td>
+				<td><span wicket:id="distanceInKilometres"></span></td>
+				<td><button type="button" wicket:id="delete-link"><wicket:message key="button.delete" /></button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+	<label><wicket:message key="label.elementsOnPage" /></label><a wicket:id="5-elements-link">5</a>&nbsp<a wicket:id="10-elements-link">10</a>&nbsp<a wicket:id="20-elements-link">20</a>
+</wicket:extend>

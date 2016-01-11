@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>
+		<wicket:message key="header.aboutPage" />
+	</h2>
+	<ul id="accordion">
+		<li><span><wicket:message key="accordion.usedTech" /></span>
+			<div>
+				<ul>
+					<li>Apache Commons</li>
+					<li>Apache Maven</li>
+					<li>Apache Wicket + Google Wicket JQuery (Kendo) UI</li>
+					<li>Eclipse Jetty</li>
+					<li>JUnit + Mockito</li>
+					<li>Slf4j + Log4j</li>
+					<li>Spring Framework (spring -core, -jdbc, -beans, -context,
+						-web, -test)</li>
+				</ul>
+			</div></li>
+
+		<li><span><wicket:message key="accordion.searchAlg" /></span>
+			<ul id="accordion">
+				<li><span><wicket:message key="accordion.routeMap" /></span>
+					<div>
+						<p>
+							<img src="images/map.jpg">
+						</p>
+					</div></li>
+
+				<li><span><wicket:message key="accordion.visalAlg" /></span>
+					<div>
+						<p>
+							<img src="images/alg-demo.jpg">
+						</p>
+					</div></li>
+
+				<li><span><wicket:message key="accordion.searchDescr" /></span>
+					<div>
+						<p>Сперва в базе ищутся все перегоны, содержащие станцию
+							отправления в столбце 'from_station' (помечены красным), затем
+							содержащие станцию назначения в 'to_station' (помечены зеленым).
+							После чего из обоих выборок берутся те, что принадлежат одному
+							рейсу.</p>
+						<p>При помощи столбца 'block_number_in_route' проверяется,
+							расположены ли перегоны в правильном порядке (чтобы в выдачу не
+							попал, например, маршрут 'X -> Y' )</p>
+						<p>И наконец проверяется наличие свободных мест в вагонах,
+							даты отправления и назначения.</p>
+						<p>Стоимость оплачиваемого участка пути и время прибытия на
+							нужную станцию вычисляется автоматически, с учетом всех промежуточных
+							участков пути между начальным и конечным.</p>
+					</div></li>
+			</ul></li>
+
+		<li><span><wicket:message key="accordion.dbStruct" /></span>
+			<ul id="accordion">
+				<li><span><wicket:message key="accordion.finance" /></span>
+					<div>
+						<p>
+							<img src="images/bill-tables.jpg">
+						</p>
+					</div></li>
+
+				<li><span><wicket:message key="accordion.path" /></span>
+					<div>
+						<p>
+							<img src="images/tables.jpg">
+						</p>
+					</div></li>
+
+			</ul></li>
+		<li><span><wicket:message key="accordion.sql" /></span>
+			<ul id="accordion">
+				<li><span><wicket:message key="accordion.viewScr" /></span>
+					<div>
+						<p>
+							CREATE VIEW search_view AS<br /> SELECT tl.id trip_id,
+							r.route_name, t.train_number train, s.name from_station, s2.name
+							to_station, r.route_type, tl.departure_date,
+							rm.block_number_in_route block, rm.block_enter_time enter_at,
+							rm.block_leave_time leave_at, t.passengers_capacity places,
+							tl.tickets_sold sold, r.price_for_kilometer km_price,
+							sts.distance_in_kilometres km<br /> FROM
+							station_to_station_block sts<br /> JOIN station s ON
+							sts.departure_station_id = s.id<br /> JOIN station s2 ON
+							sts.destination_station_id = s2.id<br /> JOIN route_map rm ON
+							rm.station_to_station_block_id = sts.id<br /> JOIN route r ON
+							rm.route_id = r.id<br /> JOIN trip_list tl ON tl.route_id = r.id<br />
+							JOIN train t ON tl.train_id = t.id<br /> ORDER BY from_station,
+							to_station, route_type, departure_date;
+						</p>
+
+					</div></li>
+				<li><span><wicket:message key="accordion.searchScr" /></span>
+					<div>
+						<p>
+							SELECT * FROM<br /> (SELECT trip_id, route_name, route_type,
+							train, from_station, block from_block, (departure_date +
+							enter_at) departure_date FROM search_view v1 WHERE
+							v1.from_station = 'МОСТЫ') s1<br /> JOIN<br /> (SELECT
+							to_station, block to_block, (departure_date + leave_at)
+							arrival_date, places, sold, km_price, km, trip_id<br /> FROM
+							search_view v2 WHERE v2.to_station = 'ОСИПОВИЧИ') s2<br /> ON
+							s1.trip_id = s2.trip_id<br /> WHERE from_block &lt;= to_block<br />
+							AND sold &lt;= places<br /> AND departure_date >= '2015-12-01'<br />
+							AND arrival_date &lt;= '2015-12-03';
+						</p>
+					</div></li>
+				<li><span><wicket:message key="accordion.priceScr" /></span>
+					<div>
+						<p>
+							SELECT km_price*km summ FROM search_view v<br /> WHERE trip_id =
+							19 AND block BETWEEN 2 AND 5;
+						</p>
+					</div></li>
+			</ul></li>
+	</ul>
+</wicket:extend>
+
+
+

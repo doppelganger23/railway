@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>
+		<wicket:message key="header.updateRouteMapPage" />
+	</h2>
+	<span wicket:id="builder"></span>
+	<br/>
+	<form wicket:id="form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.stsBlock" /></label></td>
+				<td><select wicket:id="block-choice"></select></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.blockEnterTime" /></label></td>
+				<td><input type="text" wicket:id="block-enter-timepicker" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.blockLeaveTime" /></label></td>
+				<td><input type="text" wicket:id="block-leave-timepicker" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit"
+						wicket:id="next-iteration-button">
+						<wicket:message key="button.continue" />
+					</button></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-button">
+						<wicket:message key="button.submit" />
+					</button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div>
+</wicket:extend>

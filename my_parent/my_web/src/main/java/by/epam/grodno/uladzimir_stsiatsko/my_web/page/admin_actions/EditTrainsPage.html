@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.editTrainPage" /></h2>
+	
+	<form wicket:id="new-train-form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.trainNumber" /></label></td>
+				<td><input wicket:id="train-number" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.passengersCapacity" /></label></td>
+				<td><input wicket:id="passengers-capacity" type="number" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-button"><wicket:message key="button.addNewTrain" /></button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div> 
+	
+	<table>
+		<thead>
+			<tr>
+				<th wicket:id="sortId"><wicket:message key="paging.id" /></th>
+				<th wicket:id="sortTrainNumber"><wicket:message key="paging.trainNumber" /></th>
+				<th wicket:id="sortPassengersCapacity"><wicket:message key="paging.passengersCapacity" /></th>
+				<th><wicket:message key="mark.actions" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="train-list">
+				<td><span wicket:id="id"></span></td>
+				<td><span wicket:id="trainNumber"></span></td>
+				<td><span wicket:id="passengersCapacity"></span></td>
+				<td><button type="button" wicket:id="delete-train-link"><wicket:message key="button.delete" /></button>
+				<button type="button" wicket:id="edit-train-link"><wicket:message key="button.edit" /></button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+	<label><wicket:message key="label.elementsOnPage" /></label><a wicket:id="5-elements-link">5</a>&nbsp<a wicket:id="10-elements-link">10</a>&nbsp<a wicket:id="20-elements-link">20</a>
+</wicket:extend>

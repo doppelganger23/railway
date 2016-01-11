@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.BuyTicketPage" /></h2>
+	<br />
+	<h4><wicket:message key="header.trainChosen" /></h4>
+	<table>
+		<tr>
+			<th><wicket:message key="mark.routeName" /></th>
+			<th><wicket:message key="mark.type" /></th>
+			<th><wicket:message key="mark.trainNumber" /></th>
+			<th><wicket:message key="mark.from" /></th>
+			<th><wicket:message key="mark.departing" /></th>
+			<th><wicket:message key="mark.to" /></th>
+			<th><wicket:message key="mark.arrives" /></th>
+		</tr>
+		<tr>
+			<td><span wicket:id="chosen-route-name"></span></td>
+			<td><span wicket:id="chosen-route-type"></span></td>
+			<td><span wicket:id="chosen-train"></span></td>
+			<td><span wicket:id="chosen-from-station"></span></td>
+			<td><span wicket:id="chosen-departure-date"></span></td>
+			<td><span wicket:id="chosen-to-station"></span></td>
+			<td><span wicket:id="chosen-arrival-date"></span></td>
+		</tr>
+	</table>
+	<br />
+	<form wicket:id="confirmation-form">
+		<h4>
+			<wicket:message key="mark.ticketCostIs" /><span wicket:id="payment-value"></span> <select
+				wicket:id="currency-type"></select>
+		</h4>
+		<button wicket:id="confirm-ticket-link"><wicket:message key="button.confirmPurchase" /></button>
+	</form>
+</wicket:extend>

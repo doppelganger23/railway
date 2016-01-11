@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="accordion.usedTech">Использованные технологии</entry>
+	<entry key="accordion.searchAlg">Алгоритм поиска</entry>
+	<entry key="accordion.routeMap">Карта маршрутов</entry>
+	<entry key="accordion.visalAlg">Визуализация поискового алгоритма</entry>
+	<entry key="accordion.searchDescr">Описание алгоритма поиска</entry>
+	<entry key="accordion.dbStruct">Структура базы данных</entry>
+	<entry key="accordion.finance">Финансовая часть</entry>
+	<entry key="accordion.path">Путевая часть</entry>
+	<entry key="accordion.sql">SQL-запросы</entry>
+	<entry key="accordion.viewScr">Запрос создания поисковой таблицы-отображения</entry>
+	<entry key="accordion.searchScr">Главный поисковый запрос (пример)</entry>
+	<entry key="accordion.priceScr">Запрос подсчета стоимости (пример)</entry>
+	
+	<entry key="author.name">Автор - Владимир Стецко</entry>
+	<entry key="author.email">e-mail: gr_23@mail.ru</entry>
+
+	<entry key="button.register">РЕГИСТРАЦИЯ</entry>
+	<entry key="button.search">ПОИСК</entry>
+	<entry key="button.submit">ОТПРАВИТЬ</entry>
+	<entry key="button.buyTicket">Купить билет</entry>
+	<entry key="button.confirmPurchase">Подтвердить покупку</entry>
+	<entry key="button.delete">Удалить</entry>
+	<entry key="button.edit">Править</entry>
+	<entry key="button.setPaid">Оплачено</entry>
+	<entry key="button.addBankDetail">Добавить</entry>
+	<entry key="button.updateBankDetail">Применить</entry>
+	<entry key="button.addNewTrain">Добавить поезд</entry>
+	<entry key="button.updateTrain">Применить</entry>
+	<entry key="button.create">Создать</entry>
+	<entry key="button.continue">Продолжить</entry>
+	<entry key="button.update">Применить изменения</entry>
+	<entry key="button.modify">Модифицировать</entry>
+	<entry key="button.updateAcc">Применить обновления</entry>
+	<entry key="button.addTripList">Добавить</entry>
+	<entry key="button.addBlock">Добавить</entry>
+	<entry key="button.addNewStation">Добавить</entry>
+	<entry key="button.updateStation">Применить</entry>
+
+	<entry key="emblem.main">Железнодорожная Касса</entry>
+	<entry key="emblem.small">онлайн-сервис</entry>
+
+	<entry key="error.currencyExists">Данный тип валюты уже есть в базе</entry>
+	<entry key="error.cantDeleteTripList">Этот рейс не может быть удален из-за требований
+		структурной целостности данных</entry>
+	<entry key="error.trainExists">Поезд с таким номером уже есть в базе</entry>
+	<entry key="error.trainNumberTaken">Этот номер поезда уже занят</entry>
+	<entry key="error.chooseBlock">Вы должны выбрать перегон, чтобы продолжить</entry>
+	<entry key="error.chooseBlockEnterTime">Укажите время в пути при отправлении</entry>
+	<entry key="error.chooseBlockLeaveTime">Укажите время в пути по прибытию</entry>
+	<entry key="error.chooseDepTime">Укажите время отправления</entry>
+	<entry key="error.loginTaken">Данный логин уже существует в системе</entry>
+	<entry key="error.emailTaken">Данный адрес электронной почты уже зарегистрирован в
+		системе</entry>
+	<entry key="error.chooseDistance">Расстояние должно быть больше нуля</entry>
+	<entry key="error.chooseDepStation">Выберите станцию отправления</entry>
+	<entry key="error.chooseDestStation">Выберите станцию назначения</entry>
+	<entry key="error.stationExists">Станция с таким названием уже существует</entry>
+
+	<entry key="header.loginPage">Страница входа</entry>
+	<entry key="header.searchPage">Страница поиска</entry>
+	<entry key="header.actions">ДЕЙСТВИЯ</entry>
+	<entry key="header.adminActions">АДМИНИСТРАТОРУ</entry>
+	<entry key="header.SRPage">Результаты поиска:</entry>
+	<entry key="header.BuyTicketPage">Страница покупки билета</entry>
+	<entry key="header.trainChosen">Вы выбрали поезд:</entry>
+	<entry key="header.BankDetailsPage">Реквизиты оплаты</entry>
+	<entry key="header.editAccsPage">Учетные записи:</entry>
+	<entry key="header.updateBankDPage">Редактировать банковскую информацию</entry>
+	<entry key="header.registrationPage">Регистрация</entry>
+	<entry key="header.editTrainPage">Редактирование списка поездов</entry>
+	<entry key="header.updateTrainPage">Изменение параметров поезда</entry>
+	<entry key="header.editRoutesPage">Редактировать маршруты</entry>
+	<entry key="header.updateRouteMapPage">Редактирование карты маршрута</entry>
+	<entry key="header.editRoutesPage">Редактировать маршруты</entry>
+	<entry key="header.updateRoutePage">Редактировать маршрут</entry>
+	<entry key="header.homePage">Домашняя страница</entry>
+	<entry key="header.contactPage">Контакты:</entry>
+	<entry key="header.updateAccPage">Изменение учетной записи</entry>
+	<entry key="header.editBillsPage">Выданные счета</entry>
+	<entry key="header.editBankDPage">Банковская информация</entry>
+	<entry key="header.editTLPage">Добавить рейс в списки</entry>
+	<entry key="header.aboutPage">О проекте</entry>
+	<entry key="header.editBlocksPage">Редактировать железнодорожные перегоны</entry>
+	<entry key="header.editStationsPage">Редактировать станции</entry>
+	<entry key="header.updateStationPage">Редактировать станцию</entry>
+
+	<entry key="locale.ru">Русский</entry>
+	<entry key="locale.en">Английский</entry>
+
+	<entry key="label.departureStation">Станция отправления</entry>
+	<entry key="label.departureDate">Дата отправления</entry>
+	<entry key="label.departureTime">Время отправления</entry>
+	<entry key="label.destinationStation">Станция назначения</entry>
+	<entry key="label.arrivalDate">Дата прибытия</entry>
+	<entry key="label.yourBillingNumber">Номер счета:</entry>
+	<entry key="label.yourPaymentValue">Сумма к оплате:</entry>
+	<entry key="label.currencyOfPayment">Валюта оплаты</entry>
+	<entry key="label.billingNumber">Номер счета</entry>
+	<entry key="label.byrExchangeRate">Курс белорусского рубля</entry>
+	<entry key="label.login">Логин</entry>
+	<entry key="label.password">Пароль</entry>
+	<entry key="label.firstName">Имя</entry>
+	<entry key="label.lastName">Фамилия</entry>
+	<entry key="label.email">Электронная почта</entry>
+	<entry key="label.trainNumber">Номер поезда</entry>
+	<entry key="label.passengersCapacity">Пассажировместимость</entry>
+	<entry key="label.elementsOnPage">Элементов на странице: </entry>
+	<entry key="label.stsBlock">Выберите железнодорожный перегон:</entry>
+	<entry key="label.routeName">Название</entry>
+	<entry key="label.routeType">Тип вагона</entry>
+	<entry key="label.priceForKilometer">Цена за километр, руб.</entry>
+	<entry key="label.blockEnterTime">Время в пути при отправлении</entry>
+	<entry key="label.blockLeaveTime">Время в пути по прибытию</entry>
+	<entry key="label.login">Логин</entry>
+	<entry key="label.firstName">Имя</entry>
+	<entry key="label.lastName">Фамилия</entry>
+	<entry key="label.email">Электронная почта</entry>
+	<entry key="label.accessLevel">Уровень доступа</entry>
+	<entry key="label.trainNumber">Номер поезда</entry>
+	<entry key="label.routeName">Название маршрута</entry>
+	<entry key="label.departureDate">Дата отправления</entry>
+	<entry key="label.distanceInKm">Расстояние, км</entry>
+	<entry key="label.stationName">Название станции</entry>
+
+	<entry key="link.registerAcc">Регистрация</entry>
+	<entry key="link.logIn">Войти</entry>
+	<entry key="link.logOut">Выйти</entry>
+	<entry key="link.editAccs">Учетные записи</entry>
+	<entry key="link.editTripLists">Списки рейсов</entry>
+	<entry key="link.editBills">Выданные счета</entry>
+	<entry key="link.editBankD">Банковская информация</entry>
+	<entry key="link.editTrains">Поезда</entry>
+	<entry key="link.editRoutes">Маршруты</entry>
+	<entry key="link.editBlocks">Перегоны</entry>
+	<entry key="link.editStations">Станции</entry>
+
+	<entry key="mark.login">Логин:</entry>
+	<entry key="mark.password">Пароль:</entry>
+	<entry key="mark.routeName">Маршрут</entry>
+	<entry key="mark.type">Тип</entry>
+	<entry key="mark.trainNumber">Номер поезда</entry>
+	<entry key="mark.from">Из</entry>
+	<entry key="mark.departing">Отправляется</entry>
+	<entry key="mark.to">В</entry>
+	<entry key="mark.arrives">Прибывает</entry>
+	<entry key="mark.ticketCostIs">Билет стоит </entry>
+	<entry key="mark.actions">Действия</entry>
+
+	<entry key="menu.home">ДОМАШНЯЯ</entry>
+	<entry key="menu.search">ПОИСК</entry>
+	<entry key="menu.about">АЛГОРИТМ ПОИСКА</entry>
+	<entry key="menu.contact">КОНТАКТЫ</entry>
+
+	<entry key="msg.haveAcc">Не зарегистрированы?</entry>
+	<entry key="msg.warnAboutModify">Внимание! Модифицирование этого маршрута создаст новый
+		на основе текущих параметров (учитывая внесенные изменения). Вы
+		cможете вручную удалить старый маршрут позднее, если это не будет
+		нарушать
+		органичений, налагаемых базой данных.</entry>
+
+	<entry key="paging.id">ID</entry>
+	<entry key="paging.login">Логин</entry>
+	<entry key="paging.firstName">Имя</entry>
+	<entry key="paging.lastName">Фамилия</entry>
+	<entry key="paging.email">Электронная почта</entry>
+	<entry key="paging.accessLevel">Уровень доступа</entry>
+	<entry key="paging.billId">ID счета</entry>
+	<entry key="paging.paymentValue">Сумма платежа</entry>
+	<entry key="paging.currencyOfPayment">Валюта оплаты</entry>
+	<entry key="paging.billingNumber">Номер счета</entry>
+	<entry key="paging.creationDate">Дата создания</entry>
+	<entry key="paging.isPaid">Оплачено?</entry>
+	<entry key="paging.trainNumber">Номер поезда</entry>
+	<entry key="paging.routeType">Тип вагона</entry>
+	<entry key="paging.routeName">Маршрут</entry>
+	<entry key="paging.departureDate">Время отправления</entry>
+	<entry key="paging.ticketsSold">Продано билетов</entry>
+	<entry key="paging.billingNumber">Номер счета</entry>
+	<entry key="paging.byrExchangeRate">Курс белорусского рубля</entry>
+	<entry key="paging.passengersCapacity">Пассажировместимость</entry>
+	<entry key="paging.priceForkilometer">Цена за километр, руб.</entry>
+	<entry key="paging.departureStationName">Название станции отправления</entry>
+	<entry key="paging.destinationStationName">Название станции назначения</entry>
+	<entry key="paging.distanceInKilometres">Расстояние, км</entry>
+	<entry key="paging.name">Название станции</entry>
+
+	<entry key="title.main">Онлайн-сервис Железнодорожная Касса</entry>
+
+</properties>

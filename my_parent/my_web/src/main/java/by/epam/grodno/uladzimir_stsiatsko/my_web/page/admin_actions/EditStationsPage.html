@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>
+		<wicket:message key="header.editStationsPage" />
+	</h2>
+
+	<form wicket:id="new-station-form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.stationName" /></label></td>
+				<td><input wicket:id="station-name" type="text" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-button">
+						<wicket:message key="button.addNewStation" />
+					</button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div>
+
+	<table>
+		<thead>
+			<tr>
+				<th wicket:id="sortId"><wicket:message key="paging.id" /></th>
+				<th wicket:id="sortName"><wicket:message key="paging.name" /></th>
+				<th><wicket:message key="mark.actions" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="stations-list">
+				<td><span wicket:id="id"></span></td>
+				<td><span wicket:id="name"></span></td>
+				<td><button type="button" wicket:id="delete-link">
+						<wicket:message key="button.delete" /></button><button type="button" wicket:id="edit-link">
+						<wicket:message key="button.edit" />
+					</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+	<label><wicket:message key="label.elementsOnPage" /></label>
+	<a wicket:id="5-elements-link">5</a>&nbsp<a
+		wicket:id="10-elements-link">10</a>&nbsp<a
+		wicket:id="20-elements-link">20</a>
+</wicket:extend>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>
+		<wicket:message key="header.updateRoutePage" />
+	</h2>
+	<br/><p><strong><wicket:message key="msg.warnAboutModify" /></strong></p>
+	<form wicket:id="route-update-form">
+		<table>
+			<tr>
+				<td><label><wicket:message key="label.routeName" /></label></td>
+				<td><input wicket:id="route-name" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message key="label.routeType" /></label></td>
+				<td><input wicket:id="route-type" type="text" /></td>
+			</tr>
+			<tr>
+				<td><label><wicket:message
+							key="label.priceForKilometer" /></label></td>
+				<td><input wicket:id="price-for-kilometer" type="number" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="submit" wicket:id="submit-button">
+						<wicket:message key="button.update" />
+					</button></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div>
+</wicket:extend>

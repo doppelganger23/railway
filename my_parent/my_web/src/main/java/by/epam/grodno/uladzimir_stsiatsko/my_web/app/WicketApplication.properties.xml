@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="accordion.usedTech">Used Technologies</entry>
+	<entry key="accordion.searchAlg">Search Algorythm</entry>
+	<entry key="accordion.routeMap">Route Map</entry>
+	<entry key="accordion.visalAlg">Search Algorythm Visualization</entry>
+	<entry key="accordion.searchDescr">Search Algorythm Description</entry>
+	<entry key="accordion.dbStruct">Database Structure</entry>
+	<entry key="accordion.finance">Financial Part</entry>
+	<entry key="accordion.path">Pathway Part</entry>
+	<entry key="accordion.sql">SQL Queries</entry>
+	<entry key="accordion.viewScr">Search View Creation Script</entry>
+	<entry key="accordion.searchScr">Main Search Script (example)</entry>
+	<entry key="accordion.priceScr">Price Calculation Script (example)</entry>
+	
+	<entry key="author.name">Author - Uladzimir Stsiatsko</entry>
+	<entry key="author.email">e-mail: gr_23@mail.ru</entry>
+
+	<entry key="button.register">REGISTER</entry>
+	<entry key="button.search">SEARCH</entry>
+	<entry key="button.submit">SUBMIT</entry>
+	<entry key="button.buyTicket">Buy Ticket</entry>
+	<entry key="button.confirmPurchase">Confirm Purchase</entry>
+	<entry key="button.delete">Delete</entry>
+	<entry key="button.edit">Edit</entry>
+	<entry key="button.setPaid">Set Paid</entry>
+	<entry key="button.addBankDetail">Add Bank Detail</entry>
+	<entry key="button.updateBankDetail">Update</entry>
+	<entry key="button.addNewTrain">Add New Train</entry>
+	<entry key="button.updateTrain">Update Train</entry>
+	<entry key="button.create">Create</entry>
+	<entry key="button.continue">Continue</entry>
+	<entry key="button.update">Update</entry>
+	<entry key="button.modify">Modify</entry>
+	<entry key="button.addTripList">Add Trip List</entry>
+	<entry key="button.updateAcc">Update Account</entry>
+	<entry key="button.addBlock">Add Block</entry>
+	<entry key="button.addNewStation">Add Station</entry>
+	<entry key="button.updateStation">Update Station</entry>
+
+	<entry key="emblem.main">Railway Ticket</entry>
+	<entry key="emblem.small">online window</entry>
+
+	<entry key="error.currencyExists">This currency type allready exists</entry>
+	<entry key="error.cantDeleteTripList">This trip list can't be deleted because of structural
+		integrity needs</entry>
+	<entry key="error.trainExists">Train with such number already exists</entry>
+	<entry key="error.trainNumberTaken">This number already used</entry>
+	<entry key="error.chooseBlock">Choose Block To Continue</entry>
+	<entry key="error.chooseBlockEnterTime">Specify relative block enter time to continue</entry>
+	<entry key="error.chooseBlockLeaveTime">Specify relative block leave time to continue</entry>
+	<entry key="error.chooseDepTime">Specify departure time</entry>
+	<entry key="error.loginTaken">This login is taken by another user</entry>
+	<entry key="error.emailTaken">This email is taken by another user</entry>
+	<entry key="error.chooseDistance">Distance must be greater then 0</entry>
+	<entry key="error.chooseDepStation">Choose Departure Station</entry>
+	<entry key="error.chooseDestStation">Choose Destination Station</entry>
+	<entry key="error.stationExists">Station with that name already exists</entry>
+	
+	<entry key="header.loginPage">Log In Page</entry>
+	<entry key="header.searchPage">Search Page</entry>
+	<entry key="header.actions">ACTIONS</entry>
+	<entry key="header.adminActions">ADMIN ACTIONS</entry>
+	<entry key="header.SRPage">Search Result Page</entry>
+	<entry key="header.BuyTicketPage">Buy Ticket Page</entry>
+	<entry key="header.trainChosen">You have chosen the train:</entry>
+	<entry key="header.BankDetailsPage">Bank Details Page</entry>
+	<entry key="header.editAccsPage">Edit Accounts Page</entry>
+	<entry key="header.updateBankDPage">Update Bank Details Page</entry>
+	<entry key="header.registrationPage">Registration Page</entry>
+	<entry key="header.editTrainPage">Edit Train Page</entry>
+	<entry key="header.updateTrainPage">Update Train Page</entry>
+	<entry key="header.editRoutesPage">Edit Routes Page</entry>
+	<entry key="header.updateRouteMapPage">Update Route Map Page</entry>
+	<entry key="header.editRoutesPage">Edit Routes Page</entry>
+	<entry key="header.updateRoutePage">Update Route Page</entry>
+	<entry key="header.homePage">Home Page</entry>
+	<entry key="header.contactPage">Contact Page</entry>
+	<entry key="header.updateAccPage">Update Account Page</entry>
+	<entry key="header.editBillsPage">Edit Bills Page</entry>
+	<entry key="header.editBankDPage">Edit Bank Details Page</entry>
+	<entry key="header.editTLPage">Edit Trip Lists Page</entry>
+	<entry key="header.aboutPage">About Project</entry>
+	<entry key="header.editBlocksPage">Edit Blocks Page</entry>
+	<entry key="header.editStationsPage">Edit Stations Page</entry>
+	<entry key="header.updateStationPage">Update Station Page</entry>
+
+	<entry key="label.departureStation">Departure Station</entry>
+	<entry key="label.departureDate">Departure Date</entry>
+	<entry key="label.departureTime">Departure Time</entry>
+	<entry key="label.destinationStation">Destination Station</entry>
+	<entry key="label.arrivalDate">Arrival Date</entry>
+	<entry key="label.yourBillingNumber">Your billing number is:</entry>
+	<entry key="label.yourPaymentValue">Your payment value is:</entry>
+	<entry key="label.currencyOfPayment">Currency of Payment</entry>
+	<entry key="label.billingNumber">Billing Number</entry>
+	<entry key="label.byrExchangeRate">BYR Exchange Rate</entry>
+	<entry key="label.login">Login</entry>
+	<entry key="label.password">Password</entry>
+	<entry key="label.firstName">First Name</entry>
+	<entry key="label.lastName">Last Name</entry>
+	<entry key="label.email">Email</entry>
+	<entry key="label.trainNumber">Train Number</entry>
+	<entry key="label.passengersCapacity">Passengers Capacity</entry>
+	<entry key="label.elementsOnPage">Elements on page: </entry>
+	<entry key="label.stsBlock">Choose Station to Station Block:</entry>
+	<entry key="label.routeName">Route Name</entry>
+	<entry key="label.routeType">Route Type</entry>
+	<entry key="label.priceForKilometer">Price For Kilometer</entry>
+	<entry key="label.blockEnterTime">Relative block enter time</entry>
+	<entry key="label.blockLeaveTime">Relative block leave time</entry>
+	<entry key="label.login">Login</entry>
+	<entry key="label.firstName">First Name</entry>
+	<entry key="label.lastName">Last Name</entry>
+	<entry key="label.email">Email</entry>
+	<entry key="label.accessLevel">Access Level</entry>
+	<entry key="label.trainNumber">Train Number</entry>
+	<entry key="label.routeName">Route Name</entry>
+	<entry key="label.departureDate">Departure Date</entry>
+	<entry key="label.distanceInKm">Distance, km</entry>
+	<entry key="label.stationName">Station Name</entry>
+
+	<entry key="link.registerAcc">Register Account</entry>
+	<entry key="link.logIn">Log In</entry>
+	<entry key="link.logOut">Log Out</entry>
+	<entry key="link.editAccs">Edit Accounts</entry>
+	<entry key="link.editTripLists">Edit Trip Lists</entry>
+	<entry key="link.editBills">Edit Bills</entry>
+	<entry key="link.editBankD">Edit Bank Details</entry>
+	<entry key="link.editTrains">Edit Trains</entry>
+	<entry key="link.editRoutes">Edit Routes</entry>
+	<entry key="link.editBlocks">Edit Blocks</entry>
+	<entry key="link.editStations">Edit Stations</entry>
+
+	<entry key="locale.ru">Russian</entry>
+	<entry key="locale.en">English</entry>
+
+	<entry key="mark.login">Login:</entry>
+	<entry key="mark.password">Password:</entry>
+	<entry key="mark.routeName">Route Name</entry>
+	<entry key="mark.type">Type</entry>
+	<entry key="mark.trainNumber">Train Number</entry>
+	<entry key="mark.from">From</entry>
+	<entry key="mark.departing">Departing</entry>
+	<entry key="mark.to">To</entry>
+	<entry key="mark.arrives">Arrives</entry>
+	<entry key="mark.ticketCostIs">The ticket cost is </entry>
+	<entry key="mark.actions">Actions</entry>
+
+	<entry key="menu.home">HOME</entry>
+	<entry key="menu.search">SEARCH</entry>
+	<entry key="menu.about">ABOUT</entry>
+	<entry key="menu.contact">CONTACT</entry>
+
+	<entry key="msg.haveAcc">Do not have an account?</entry>
+	<entry key="msg.warnAboutModify">Warning! Modifying this route will create new one
+		based on current properties (with changes you input). You can delete
+		old one manually afterwards, if it would not violate database
+		restricts.</entry>
+
+	<entry key="paging.id">Id</entry>
+	<entry key="paging.login">Login</entry>
+	<entry key="paging.firstName">First Name</entry>
+	<entry key="paging.lastName">Last Name</entry>
+	<entry key="paging.email">Email Address</entry>
+	<entry key="paging.accessLevel">Access Level</entry>
+	<entry key="paging.billId">Bill Id</entry>
+	<entry key="paging.paymentValue">Payment Value</entry>
+	<entry key="paging.currencyOfPayment">Currency of Payment</entry>
+	<entry key="paging.billingNumber">Billing Number</entry>
+	<entry key="paging.creationDate">Creation Date</entry>
+	<entry key="paging.isPaid">Is Paid</entry>
+	<entry key="paging.trainNumber">Train Number</entry>
+	<entry key="paging.routeType">Route Type</entry>
+	<entry key="paging.routeName">Route Name</entry>
+	<entry key="paging.departureDate">Departure Date</entry>
+	<entry key="paging.ticketsSold">Tickets Sold</entry>
+	<entry key="paging.billingNumber">Billing Number</entry>
+	<entry key="paging.byrExchangeRate">BYR Exchange Rate</entry>
+	<entry key="paging.passengersCapacity">Passengers Capacity</entry>
+	<entry key="paging.priceForkilometer">Price For Kilometer in BYR</entry>
+	<entry key="paging.departureStationName">Departure Station Name</entry>
+	<entry key="paging.destinationStationName">Destination Station Name</entry>
+	<entry key="paging.distanceInKilometres">Distance, km</entry>
+	<entry key="paging.name">Station Name</entry>
+
+	<entry key="title.main">Online Railway Ticket Window</entry>
+
+	<entry key="header.updateAccPage">Update Account Page</entry>
+	<entry key="header.editBillsPage">Edit Bills Page</entry>
+	<entry key="header.editBankDPage">Edit Bank Details Page</entry>
+	<entry key="header.editTLPage">Edit Trip Lists Page</entry>
+
+</properties>

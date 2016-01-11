@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2><wicket:message key="header.SRPage" /></h2>
+	<table>
+		<thead>
+			<tr>
+				<th><wicket:message key="mark.routeName" /></th>
+				<th><wicket:message key="mark.type" /></th>
+				<th><wicket:message key="mark.trainNumber" /></th>
+				<th><wicket:message key="mark.from" /></th>
+				<th><wicket:message key="mark.departing" /></th>
+				<th><wicket:message key="mark.to" /></th>
+				<th><wicket:message key="mark.arrives" /></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr wicket:id="search-results-list">
+				<td><span wicket:id="route-name"></span></td>
+				<td><span wicket:id="route-type"></span></td>
+				<td><span wicket:id="train"></span></td>
+				<td><span wicket:id="from-station"></span></td>
+				<td><span wicket:id="departure-date"></span></td>
+				<td><span wicket:id="to-station"></span></td>
+				<td><span wicket:id="arrival-date"></span></td>
+				<td><button type="button" wicket:id="buy-ticket-link"><wicket:message key="button.buyTicket" /></button></td>
+			</tr>
+		</tbody>
+	</table>
+</wicket:extend>

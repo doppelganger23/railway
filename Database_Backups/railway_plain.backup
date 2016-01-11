@@ -1,0 +1,1425 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.10
+-- Dumped by pg_dump version 9.3.10
+-- Started on 2016-01-11 06:20:44 MSK
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 190 (class 3079 OID 11789)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2104 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 1532 (class 3600 OID 16662)
+-- Name: bank_details; Type: TEXT SEARCH DICTIONARY; Schema: public; Owner: h23
+--
+
+CREATE TEXT SEARCH DICTIONARY bank_details (
+    TEMPLATE = pg_catalog.simple );
+
+
+ALTER TEXT SEARCH DICTIONARY public.bank_details OWNER TO h23;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 170 (class 1259 OID 16663)
+-- Name: account; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE account (
+    id integer NOT NULL,
+    login character varying(50) NOT NULL,
+    password character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    first_name character varying(50) NOT NULL,
+    email character varying(50) NOT NULL,
+    access_level character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.account OWNER TO h23;
+
+--
+-- TOC entry 171 (class 1259 OID 16666)
+-- Name: administrators_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE administrators_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.administrators_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2105 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: administrators_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE administrators_id_seq OWNED BY account.id;
+
+
+--
+-- TOC entry 172 (class 1259 OID 16668)
+-- Name: bank_detail; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE bank_detail (
+    currency_of_payment character varying(10) NOT NULL,
+    billing_number integer NOT NULL,
+    byr_exchange_rate double precision NOT NULL
+);
+
+
+ALTER TABLE public.bank_detail OWNER TO h23;
+
+--
+-- TOC entry 173 (class 1259 OID 16671)
+-- Name: bill; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE bill (
+    id integer NOT NULL,
+    account_id integer NOT NULL,
+    trip_list_id integer NOT NULL,
+    payment_value double precision NOT NULL,
+    is_paid boolean NOT NULL,
+    billing_number integer NOT NULL,
+    from_block integer NOT NULL,
+    to_block integer NOT NULL,
+    currency_of_payment character varying(10) NOT NULL,
+    creation_date timestamp without time zone
+);
+
+
+ALTER TABLE public.bill OWNER TO h23;
+
+--
+-- TOC entry 174 (class 1259 OID 16674)
+-- Name: bills_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE bills_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bills_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2106 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: bills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE bills_id_seq OWNED BY bill.id;
+
+
+--
+-- TOC entry 175 (class 1259 OID 16676)
+-- Name: request; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE request (
+    id integer NOT NULL,
+    departure_station character varying(50) NOT NULL,
+    destination_station character varying(50) NOT NULL,
+    departure_date timestamp without time zone,
+    arrival_date timestamp without time zone
+);
+
+
+ALTER TABLE public.request OWNER TO h23;
+
+--
+-- TOC entry 176 (class 1259 OID 16679)
+-- Name: requests_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.requests_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2107 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE requests_id_seq OWNED BY request.id;
+
+
+--
+-- TOC entry 177 (class 1259 OID 16681)
+-- Name: route; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE route (
+    id integer NOT NULL,
+    route_name character varying(150) NOT NULL,
+    route_type character varying(10) NOT NULL,
+    price_for_kilometer double precision NOT NULL
+);
+
+
+ALTER TABLE public.route OWNER TO h23;
+
+--
+-- TOC entry 178 (class 1259 OID 16684)
+-- Name: route_map; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE route_map (
+    id integer NOT NULL,
+    route_id integer NOT NULL,
+    station_to_station_block_id integer NOT NULL,
+    block_number_in_route integer NOT NULL,
+    block_leave_time time without time zone NOT NULL,
+    block_enter_time time without time zone NOT NULL
+);
+
+
+ALTER TABLE public.route_map OWNER TO h23;
+
+--
+-- TOC entry 179 (class 1259 OID 16687)
+-- Name: routes_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE routes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.routes_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2108 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: routes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE routes_id_seq OWNED BY route.id;
+
+
+--
+-- TOC entry 180 (class 1259 OID 16689)
+-- Name: routes_map_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE routes_map_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.routes_map_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2109 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: routes_map_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE routes_map_id_seq OWNED BY route_map.id;
+
+
+--
+-- TOC entry 181 (class 1259 OID 16691)
+-- Name: station; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE station (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.station OWNER TO h23;
+
+--
+-- TOC entry 182 (class 1259 OID 16694)
+-- Name: station_to_station_block; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE station_to_station_block (
+    id integer NOT NULL,
+    distance_in_kilometres double precision NOT NULL,
+    departure_station_id integer NOT NULL,
+    destination_station_id integer NOT NULL
+);
+
+
+ALTER TABLE public.station_to_station_block OWNER TO h23;
+
+--
+-- TOC entry 183 (class 1259 OID 16697)
+-- Name: train; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE train (
+    id integer NOT NULL,
+    train_number character varying(10) NOT NULL,
+    passengers_capacity integer NOT NULL
+);
+
+
+ALTER TABLE public.train OWNER TO h23;
+
+--
+-- TOC entry 184 (class 1259 OID 16700)
+-- Name: trip_list; Type: TABLE; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE TABLE trip_list (
+    id integer NOT NULL,
+    train_id integer NOT NULL,
+    route_id integer NOT NULL,
+    departure_date timestamp without time zone NOT NULL,
+    tickets_sold integer NOT NULL
+);
+
+
+ALTER TABLE public.trip_list OWNER TO h23;
+
+--
+-- TOC entry 185 (class 1259 OID 16703)
+-- Name: search_view; Type: VIEW; Schema: public; Owner: h23
+--
+
+CREATE VIEW search_view AS
+ SELECT tl.id AS trip_id,
+    r.route_name,
+    t.train_number AS train,
+    s.name AS from_station,
+    s2.name AS to_station,
+    r.route_type,
+    tl.departure_date,
+    rm.block_number_in_route AS block,
+    rm.block_enter_time AS enter_at,
+    rm.block_leave_time AS leave_at,
+    t.passengers_capacity AS places,
+    tl.tickets_sold AS sold,
+    r.price_for_kilometer AS km_price,
+    sts.distance_in_kilometres AS km
+   FROM ((((((station_to_station_block sts
+     JOIN station s ON ((sts.departure_station_id = s.id)))
+     JOIN station s2 ON ((sts.destination_station_id = s2.id)))
+     JOIN route_map rm ON ((rm.station_to_station_block_id = sts.id)))
+     JOIN route r ON ((rm.route_id = r.id)))
+     JOIN trip_list tl ON ((tl.route_id = r.id)))
+     JOIN train t ON ((tl.train_id = t.id)))
+  ORDER BY s.name, s2.name, r.route_type, tl.departure_date;
+
+
+ALTER TABLE public.search_view OWNER TO h23;
+
+--
+-- TOC entry 186 (class 1259 OID 16708)
+-- Name: station_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE station_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.station_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2110 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: station_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE station_id_seq OWNED BY station.id;
+
+
+--
+-- TOC entry 187 (class 1259 OID 16710)
+-- Name: station_to_station_blocks_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE station_to_station_blocks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.station_to_station_blocks_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2111 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: station_to_station_blocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE station_to_station_blocks_id_seq OWNED BY station_to_station_block.id;
+
+
+--
+-- TOC entry 188 (class 1259 OID 16712)
+-- Name: trains_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE trains_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.trains_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2112 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: trains_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE trains_id_seq OWNED BY train.id;
+
+
+--
+-- TOC entry 189 (class 1259 OID 16714)
+-- Name: trip_lists_id_seq; Type: SEQUENCE; Schema: public; Owner: h23
+--
+
+CREATE SEQUENCE trip_lists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.trip_lists_id_seq OWNER TO h23;
+
+--
+-- TOC entry 2113 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: trip_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: h23
+--
+
+ALTER SEQUENCE trip_lists_id_seq OWNED BY trip_list.id;
+
+
+--
+-- TOC entry 1918 (class 2604 OID 16716)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY account ALTER COLUMN id SET DEFAULT nextval('administrators_id_seq'::regclass);
+
+
+--
+-- TOC entry 1919 (class 2604 OID 16717)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY bill ALTER COLUMN id SET DEFAULT nextval('bills_id_seq'::regclass);
+
+
+--
+-- TOC entry 1920 (class 2604 OID 16718)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY request ALTER COLUMN id SET DEFAULT nextval('requests_id_seq'::regclass);
+
+
+--
+-- TOC entry 1921 (class 2604 OID 16719)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY route ALTER COLUMN id SET DEFAULT nextval('routes_id_seq'::regclass);
+
+
+--
+-- TOC entry 1922 (class 2604 OID 16720)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY route_map ALTER COLUMN id SET DEFAULT nextval('routes_map_id_seq'::regclass);
+
+
+--
+-- TOC entry 1923 (class 2604 OID 16721)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY station ALTER COLUMN id SET DEFAULT nextval('station_id_seq'::regclass);
+
+
+--
+-- TOC entry 1924 (class 2604 OID 16722)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY station_to_station_block ALTER COLUMN id SET DEFAULT nextval('station_to_station_blocks_id_seq'::regclass);
+
+
+--
+-- TOC entry 1925 (class 2604 OID 16723)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY train ALTER COLUMN id SET DEFAULT nextval('trains_id_seq'::regclass);
+
+
+--
+-- TOC entry 1926 (class 2604 OID 16724)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY trip_list ALTER COLUMN id SET DEFAULT nextval('trip_lists_id_seq'::regclass);
+
+
+--
+-- TOC entry 2078 (class 0 OID 16663)
+-- Dependencies: 170
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY account (id, login, password, last_name, first_name, email, access_level) FROM stdin;
+1	23	qwerty23	23	23	23@23.23	admin
+5	3	3	3	3	3	passenger
+6	1	1	1	1	1	passenger
+7	5	5	5	5	5	passenger
+8	4	4	4	4	4	passenger
+4	2	2	2	23	23	passenger
+9	admin	admin	admin	admin	admin	admin
+10	login	password	last name	first name	email	admin
+\.
+
+
+--
+-- TOC entry 2114 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: administrators_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('administrators_id_seq', 10, true);
+
+
+--
+-- TOC entry 2080 (class 0 OID 16668)
+-- Dependencies: 172
+-- Data for Name: bank_detail; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY bank_detail (currency_of_payment, billing_number, byr_exchange_rate) FROM stdin;
+USD	123456789	18569
+BYR	987654321	1
+EUR	111111111	20300
+\.
+
+
+--
+-- TOC entry 2081 (class 0 OID 16671)
+-- Dependencies: 173
+-- Data for Name: bill; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY bill (id, account_id, trip_list_id, payment_value, is_paid, billing_number, from_block, to_block, currency_of_payment, creation_date) FROM stdin;
+1	1	64	144150	t	987654321	1	5	BYR	2012-08-01 01:00:00
+4	1	64	165950	t	987654321	1	6	BYR	2015-12-10 03:00:00
+5	1	11	182475	f	987654321	1	8	BYR	2014-11-08 05:00:00
+6	1	21	171975	f	987654321	1	6	BYR	2015-01-01 04:00:00
+7	1	4	91725	f	987654321	1	4	BYR	2015-01-02 10:00:00
+8	1	4	16250	f	987654321	1	1	BYR	2015-04-03 06:00:00
+9	1	21	9.45862499999999962	f	123456789	1	6	USD	2016-01-01 11:00:00
+10	1	4	0.8125	f	111111111	1	1	EUR	2014-03-02 12:00:00
+11	1	11	10.0361250000000002	f	123456789	1	8	USD	2014-07-05 13:00:00
+12	1	64	9.12725000000000009	f	123456789	1	6	USD	2013-08-19 14:00:00
+13	1	11	9.12375000000000114	f	111111111	1	8	EUR	2012-09-15 15:00:00
+14	1	66	4.91012499999999985	f	123456789	1	4	USD	2011-11-11 16:00:00
+15	1	32	4.91012499999999985	f	123456789	1	4	USD	2012-12-12 17:00:00
+16	1	4	4.5862500000000006	f	111111111	1	4	EUR	2013-01-13 22:00:00
+17	1	4	4.5862500000000006	f	111111111	1	4	EUR	2015-05-15 23:00:00
+18	1	4	4.5862500000000006	f	111111111	1	4	EUR	2014-09-09 23:55:00
+19	1	15	4.91012499999999985	f	123456789	1	4	USD	2015-10-01 05:35:00
+20	1	34	6.75576000000000043	f	123456789	1	8	USD	2016-01-04 15:17:17.764
+21	1	15	4.39778325123152669	f	111111111	1	4	EUR	2016-01-04 19:34:05.297
+22	1	4	4.51847290640394128	f	111111111	1	4	EUR	2016-01-05 10:56:29.758
+23	1	4	4.51847290640394128	f	111111111	1	4	EUR	2016-01-05 11:04:23.822
+24	1	4	4.51999999999999957	f	111111111	1	4	EUR	2016-01-05 11:12:26.356
+25	1	11	8.99000000000000021	f	111111111	1	8	EUR	2016-01-05 21:01:31.814
+26	1	3	3.45999999999999996	f	123456789	1	4	USD	2016-01-06 00:00:36.003
+3	1	11	182475	t	987654321	1	8	BYR	2015-09-01 02:00:00
+27	1	15	4.80999999999999961	f	123456789	1	4	USD	2016-01-09 16:46:13.982
+28	1	11	80250	f	987654321	5	8	BYR	2016-01-09 17:03:58.61
+29	1	11	8.99000000000000021	f	111111111	1	8	EUR	2016-01-09 17:05:30.677
+30	1	15	37000	f	987654321	1	2	BYR	2016-01-10 13:47:59.984
+31	1	4	91725	f	987654321	1	4	BYR	2016-01-10 13:56:38.843
+32	1	4	91725	f	987654321	1	4	BYR	2016-01-10 14:01:56.647
+33	1	4	91725	f	987654321	1	4	BYR	2016-01-10 14:08:37.015
+\.
+
+
+--
+-- TOC entry 2115 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: bills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('bills_id_seq', 33, true);
+
+
+--
+-- TOC entry 2083 (class 0 OID 16676)
+-- Dependencies: 175
+-- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY request (id, departure_station, destination_station, departure_date, arrival_date) FROM stdin;
+1	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+2	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+3	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+4	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+5	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+6	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+7	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+8	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+9	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+10	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+11	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+12	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+13	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+14	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+15	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+16	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+17	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+18	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+19	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+20	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+21	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+22	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+23	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+24	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+25	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+26	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+27	Grodno	Kukuevo	1970-01-01 03:01:39.999	1970-01-01 03:01:39.999
+\.
+
+
+--
+-- TOC entry 2116 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: requests_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('requests_id_seq', 27, true);
+
+
+--
+-- TOC entry 2085 (class 0 OID 16681)
+-- Dependencies: 177
+-- Data for Name: route; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY route (id, route_name, route_type, price_for_kilometer) FROM stdin;
+1	ГРОДНО-МИНСК	ПЛАЦКАРТ	180
+2	ГРОДНО-МИНСК	КУПЕ	250
+3	ГРОДНО-МИНСК	СИДЯЧИЙ	100
+4	МИНСК-ГРОДНО	ПЛАЦКАРТ	180
+5	МИНСК-ГРОДНО	КУПЕ	250
+6	МИНСК-ГРОДНО	СИДЯЧИЙ	100
+7	ГРОДНО-ГОМЕЛЬ	КУПЕ	250
+8	ГОМЕЛЬ-ГРОДНО	КУПЕ	250
+9	ГРОДНО-ГОМЕЛЬ	ПЛАЦКАРТ	180
+10	ГОМЕЛЬ-ГРОДНО	ПЛАЦКАРТ	180
+11	ГРОДНО-БРЕСТ	КУПЕ	250
+12	БРЕСТ-ГРОДНО	КУПЕ	250
+13	ГРОДНО-ВИТЕБСК	ПЛАЦКАРТ	180
+14	ВИТЕБСК-ГРОДНО	ПЛАЦКАРТ	180
+15	ГРОДНО-МОГИЛЕВ	ПЛАЦКАРТ	180
+16	МОГИЛЕВ-ГРОДНО	ПЛАЦКАРТ	180
+17	ГРОДНО-МОГИЛЕВ	КУПЕ	250
+18	МОГИЛЕВ-ГРОДНО	КУПЕ	250
+19	ГРОДНО-БРЕСТ	ПЛАЦКАРТ	180
+20	БРЕСТ-ГРОДНО	ПЛАЦКАРТ	180
+21	ГРОДНО-ВИТЕБСК	КУПЕ	250
+22	ВИТЕБСК-ГРОДНО	КУПЕ	250
+68	ГРОДНО-МИНСК	ПЛАЦКАРТ	180
+69	1	1	1
+70	24	24	0
+\.
+
+
+--
+-- TOC entry 2086 (class 0 OID 16684)
+-- Dependencies: 178
+-- Data for Name: route_map; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY route_map (id, route_id, station_to_station_block_id, block_number_in_route, block_leave_time, block_enter_time) FROM stdin;
+1	1	32	1	00:55:00	00:00:00
+2	1	29	2	02:02:00	00:55:00
+3	1	27	3	03:51:00	02:02:00
+4	1	25	4	04:59:00	03:51:00
+5	4	24	1	01:08:00	00:00:00
+6	4	26	2	02:57:00	01:08:00
+7	4	28	3	04:04:00	02:57:00
+8	4	33	4	04:59:00	04:04:00
+9	2	32	1	00:55:00	00:00:00
+10	2	36	2	01:29:00	00:55:00
+11	2	42	3	03:00:00	01:29:00
+12	2	47	4	04:39:00	03:00:00
+13	3	32	1	00:55:00	00:00:00
+14	3	36	2	01:29:00	00:55:00
+15	3	42	3	03:00:00	01:29:00
+16	3	47	4	04:39:00	03:00:00
+17	5	48	1	01:39:00	00:00:00
+18	5	43	2	03:10:00	01:39:00
+19	5	37	3	03:44:00	03:10:00
+20	5	33	4	04:39:00	03:44:00
+21	6	48	1	01:39:00	00:00:00
+22	6	43	2	03:10:00	01:39:00
+27	7	45	3	03:44:00	02:02:00
+23	6	37	3	03:44:00	03:10:00
+24	6	33	4	04:39:00	03:44:00
+25	7	32	1	00:55:00	00:00:00
+26	7	29	2	02:02:00	00:55:00
+28	7	47	4	05:23:00	03:44:00
+29	7	96	5	06:49:00	05:23:00
+30	7	70	6	07:31:00	06:49:00
+31	7	67	7	08:33:00	07:31:00
+32	7	72	8	09:42:00	08:33:00
+33	8	73	1	01:09:00	00:00:00
+34	8	66	2	02:11:00	01:09:00
+35	8	71	3	02:53:00	02:11:00
+36	8	97	4	04:19:00	02:53:00
+37	8	48	5	05:58:00	04:19:00
+38	8	44	6	07:40:00	05:58:00
+39	8	28	7	08:47:00	07:40:00
+40	8	33	8	09:42:00	08:47:00
+41	9	32	1	00:55:00	00:00:00
+42	9	36	2	01:29:00	00:55:00
+43	9	42	3	03:00:00	01:29:00
+44	9	87	4	04:51:00	03:00:00
+45	9	85	5	05:54:00	04:51:00
+46	9	82	6	07:15:00	05:54:00
+47	9	78	7	07:52:00	07:15:00
+48	9	75	8	09:14:00	07:52:00
+49	10	74	1	01:22:00	00:00:00
+50	10	79	2	01:59:00	01:22:00
+51	10	83	3	03:20:00	01:59:00
+52	10	84	4	04:23:00	03:20:00
+53	10	86	5	06:14:00	04:23:00
+54	10	43	6	07:45:00	06:14:00
+55	10	37	7	08:19:00	07:45:00
+56	10	33	8	09:14:00	08:19:00
+60	11	25	4	04:59:00	03:51:00
+58	11	29	2	02:02:00	00:55:00
+57	11	32	1	00:55:00	00:00:00
+59	11	27	3	03:51:00	02:02:00
+61	11	48	5	06:38:00	04:59:00
+62	11	88	6	09:06:00	06:38:00
+63	12	89	1	02:28:00	00:00:00
+64	12	47	2	04:07:00	02:28:00
+65	12	24	3	05:15:00	04:07:00
+66	12	26	4	07:04:00	05:15:00
+67	12	28	5	08:11:00	07:04:00
+68	12	33	6	09:06:00	08:11:00
+70	19	36	2	01:29:00	00:55:00
+69	19	32	1	00:55:00	00:00:00
+71	19	42	3	03:00:00	01:29:00
+72	19	88	4	05:28:00	03:00:00
+73	20	89	1	02:28:00	05:28:00
+74	20	43	2	03:59:00	02:28:00
+75	20	37	3	04:33:00	03:59:00
+76	20	33	4	05:28:00	04:33:00
+77	13	32	1	00:55:00	00:00:00
+78	13	29	2	02:02:00	00:55:00
+79	13	27	3	03:51:00	02:02:00
+80	13	30	4	05:45:00	03:51:00
+81	13	10	5	07:08:00	05:45:00
+82	13	12	6	08:34:00	07:08:00
+83	14	13	1	01:26:00	00:00:00
+84	14	11	2	02:49:00	01:26:00
+85	14	31	3	04:43:00	02:49:00
+86	14	26	4	06:32:00	04:43:00
+87	14	28	5	07:39:00	06:32:00
+88	14	33	6	08:34:00	07:39:00
+89	21	32	1	00:55:00	00:00:00
+90	21	29	2	02:02:00	00:55:00
+91	21	27	3	03:51:00	02:02:00
+92	21	25	4	04:59:00	03:51:00
+93	21	22	5	07:22:00	04:59:00
+94	21	15	6	08:33:00	07:22:00
+95	22	14	1	01:11:00	00:00:00
+96	22	23	2	03:34:00	01:11:00
+97	22	24	3	04:42:00	03:34:00
+98	22	26	4	06:31:00	04:42:00
+99	22	28	5	07:38:00	06:31:00
+100	22	33	6	08:33:00	07:38:00
+102	15	36	2	01:29:00	00:55:00
+101	15	32	1	00:55:00	00:00:00
+103	15	42	3	03:00:00	01:29:00
+104	15	49	4	04:36:00	03:00:00
+105	15	53	5	05:59:00	04:36:00
+106	15	56	6	08:05:00	05:59:00
+107	16	57	1	02:06:00	00:00:00
+108	16	54	2	03:29:00	02:06:00
+109	16	50	3	05:05:00	03:29:00
+110	16	43	4	06:36:00	05:05:00
+111	16	37	5	07:10:00	06:36:00
+112	16	33	6	08:05:00	07:10:00
+113	17	32	1	00:55:00	00:00:00
+114	17	29	2	02:02:00	00:55:00
+115	17	45	3	03:44:00	02:02:00
+116	17	47	4	05:23:00	03:44:00
+117	17	96	5	06:49:00	05:23:00
+118	17	56	6	08:55:00	06:49:00
+119	18	57	1	02:06:00	00:00:00
+120	18	97	2	03:32:00	02:06:00
+121	18	48	3	05:11:00	03:32:00
+122	18	44	4	06:53:00	05:11:00
+123	18	28	5	08:00:00	06:53:00
+124	18	33	6	08:55:00	08:00:00
+\.
+
+
+--
+-- TOC entry 2117 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: routes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('routes_id_seq', 70, true);
+
+
+--
+-- TOC entry 2118 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: routes_map_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('routes_map_id_seq', 144, true);
+
+
+--
+-- TOC entry 2089 (class 0 OID 16691)
+-- Dependencies: 181
+-- Data for Name: station; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY station (id, name) FROM stdin;
+1	ГРОДНО
+2	ЛИДА
+3	МОСТЫ
+5	ВОЛКОВЫСК
+6	БАРАНОВИЧИ
+7	МИНСК
+8	СЛУЦК
+9	ОСИПОВИЧИ
+10	МОЛОДЕЧНО
+11	МОГИЛЕВ
+12	КРИЧЕВ
+13	ДРУЯ
+14	ПОЛОЦК
+15	ВОРОПАЕВО
+16	ПОСТАВЫ
+21	КРУЛЕВЩИЗНА
+22	ВИТЕБСК
+23	ОРША
+24	ЛЕПЕЛЬ
+25	НОВОЛУКОМЛЬ
+26	ГРОДЗЯНКА
+31	БОБРУЙСК
+32	ЖЛОБИН
+33	РАБКОР
+36	СОЛИГОРСК
+37	БЕРЕСТОВИЦА
+38	СВИСЛОЧЬ
+39	БРЕСТ
+40	ЛУНИНЕЦ
+42	ХОТИСЛАВ
+43	ВЛОДАВА
+44	КАЛИНКОВИЧИ
+45	ХОЙНИКИ
+46	ВАСИЛЕВИЧИ
+47	ГОМЕЛЬ
+41	ЖИТКОВИЧИ
+\.
+
+
+--
+-- TOC entry 2119 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: station_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('station_id_seq', 64, true);
+
+
+--
+-- TOC entry 2090 (class 0 OID 16694)
+-- Dependencies: 182
+-- Data for Name: station_to_station_block; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY station_to_station_block (id, distance_in_kilometres, departure_station_id, destination_station_id) FROM stdin;
+4	106.400000000000006	13	15
+5	106.400000000000006	15	13
+6	27.1999999999999993	15	16
+7	27.1999999999999993	16	15
+8	117.400000000000006	15	21
+9	117.400000000000006	21	15
+10	150	21	14
+11	150	14	21
+12	101.900000000000006	14	22
+13	101.900000000000006	22	14
+14	87.2000000000000028	22	23
+15	87.2000000000000028	23	22
+16	121.799999999999997	23	24
+17	121.799999999999997	24	23
+18	103.700000000000003	23	25
+19	103.700000000000003	25	23
+20	45.5	24	25
+21	45.5	25	24
+22	219.5	7	23
+23	219.5	23	7
+24	75.7000000000000028	7	10
+25	75.7000000000000028	10	7
+26	133.400000000000006	10	2
+27	133.400000000000006	2	10
+28	83	2	3
+29	83	3	2
+30	110.200000000000003	10	21
+31	110.200000000000003	21	10
+32	65	1	3
+33	65	3	1
+36	39.7999999999999972	3	5
+37	39.7999999999999972	5	3
+38	36.2000000000000028	5	37
+39	36.2000000000000028	37	5
+40	31.6000000000000014	38	5
+41	31.6000000000000014	5	38
+42	116.200000000000003	5	6
+43	116.200000000000003	6	5
+44	115	6	2
+45	115	2	6
+96	104.200000000000003	7	9
+47	145.900000000000006	6	7
+48	145.900000000000006	7	6
+49	115.5	6	8
+50	115.5	8	6
+51	30.8999999999999986	8	36
+52	30.8999999999999986	36	8
+53	102.5	8	9
+54	102.5	9	8
+97	104.200000000000003	9	7
+46	40.8999999999999986	9	26
+55	40.8999999999999986	26	9
+56	174.800000000000011	9	11
+57	174.800000000000011	11	9
+58	77.5999999999999943	11	23
+59	77.5999999999999943	23	11
+60	147.599999999999994	23	12
+61	147.599999999999994	12	23
+62	112.400000000000006	11	12
+63	112.400000000000006	12	11
+64	139.300000000000011	11	32
+65	139.300000000000011	32	11
+66	69.5999999999999943	32	31
+67	69.5999999999999943	31	32
+68	89.2999999999999972	31	33
+69	89.2999999999999972	33	31
+70	47.7000000000000028	9	31
+71	47.7000000000000028	31	9
+72	99.5	32	47
+73	99.5	47	32
+74	96.0999999999999943	47	46
+75	96.0999999999999943	46	47
+76	80.5999999999999943	45	46
+77	80.5999999999999943	46	45
+78	45.2000000000000028	44	46
+79	45.2000000000000028	46	44
+80	125.299999999999997	44	32
+81	125.299999999999997	32	44
+82	111.5	41	44
+83	111.5	44	41
+84	81.5	41	40
+85	81.5	40	41
+86	127.099999999999994	40	6
+87	127.099999999999994	6	40
+88	212.199999999999989	6	39
+89	212.199999999999989	39	6
+90	233.900000000000006	39	40
+91	233.900000000000006	40	39
+92	64.9000000000000057	39	42
+93	64.9000000000000057	42	39
+94	72.5	39	43
+95	72.5	43	39
+\.
+
+
+--
+-- TOC entry 2120 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: station_to_station_blocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('station_to_station_blocks_id_seq', 98, true);
+
+
+--
+-- TOC entry 2091 (class 0 OID 16697)
+-- Dependencies: 183
+-- Data for Name: train; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY train (id, train_number, passengers_capacity) FROM stdin;
+2	451Т	746
+3	28У	800
+4	601Б	720
+5	924Д	768
+6	224Г	900
+7	158	504
+8	169	824
+9	602	648
+10	458	566
+11	153	600
+12	153А	700
+13	464	640
+14	541	600
+15	432	820
+16	155	700
+17	159	560
+18	160У	670
+19	560	780
+20	234	840
+23	152	200
+21	23	555
+1	151	601
+\.
+
+
+--
+-- TOC entry 2121 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: trains_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('trains_id_seq', 24, true);
+
+
+--
+-- TOC entry 2092 (class 0 OID 16700)
+-- Dependencies: 184
+-- Data for Name: trip_list; Type: TABLE DATA; Schema: public; Owner: h23
+--
+
+COPY trip_list (id, train_id, route_id, departure_date, tickets_sold) FROM stdin;
+6	4	4	2015-12-08 00:00:00	25
+9	5	5	2015-12-01 13:00:00	7
+10	6	6	2015-12-01 14:40:00	89
+5	3	3	2015-12-30 14:05:00	10
+3	1	1	2015-12-01 00:00:00	54
+21	17	17	2015-12-03 22:23:00	190
+23	19	1	2015-12-05 23:55:00	137
+24	20	2	2015-12-04 22:10:00	52
+12	8	8	2015-12-04 08:30:00	29
+13	9	9	2015-12-04 10:50:00	560
+14	10	10	2015-12-02 20:30:00	65
+16	12	12	2015-12-04 00:53:00	83
+17	13	13	2015-12-03 00:10:00	76
+18	14	14	2015-12-05 17:23:00	320
+19	15	15	2015-12-02 05:44:00	62
+20	16	16	2015-12-02 03:20:00	237
+22	18	18	2015-12-04 10:00:00	24
+25	1	18	2015-12-07 14:32:00	10
+26	2	17	2015-12-10 12:30:00	15
+27	3	16	2015-12-09 00:00:00	64
+28	4	15	2015-12-06 22:15:00	257
+29	5	14	2015-12-08 08:45:00	324
+30	6	13	2015-12-07 09:30:00	11
+31	7	12	2015-12-09 00:00:00	34
+32	8	11	2015-12-08 08:14:00	25
+33	9	10	2015-12-07 00:00:00	54
+34	10	9	2015-12-06 07:30:00	356
+35	11	8	2015-12-08 11:24:00	246
+36	12	7	2015-12-09 00:00:00	76
+37	13	6	2015-12-10 14:17:00	25
+38	14	5	2015-12-10 15:30:00	18
+39	15	4	2015-12-10 16:44:00	10
+40	16	3	2015-12-09 15:15:00	12
+41	17	2	2015-12-08 13:35:00	19
+42	18	1	2015-12-10 14:37:00	90
+43	19	2	2015-12-09 19:10:00	84
+44	20	3	2015-12-10 17:14:00	27
+45	1	3	2015-12-14 22:23:00	17
+46	2	2	2015-12-15 13:17:00	184
+47	3	1	2015-12-15 14:29:00	29
+48	5	5	2015-12-20 15:34:00	189
+49	17	17	2015-12-14 00:00:00	26
+50	15	15	2015-12-30 22:50:00	11
+51	20	18	2015-12-24 11:30:00	1
+52	14	1	2015-12-15 11:10:00	5
+53	13	13	2015-12-14 11:10:00	7
+54	7	1	2015-12-17 22:00:00	16
+55	18	19	2015-12-15 17:35:00	254
+56	10	19	2015-12-17 13:22:00	17
+57	9	19	2015-12-30 00:00:00	25
+58	11	19	2015-12-07 23:00:00	15
+59	4	20	2015-12-25 03:00:00	24
+60	8	20	2015-12-11 05:25:00	19
+61	16	20	2015-12-22 15:48:00	26
+63	6	20	2015-12-03 15:47:00	32
+64	19	21	2015-12-08 20:23:00	23
+65	20	21	2015-12-30 00:00:00	21
+66	14	21	2015-12-11 14:57:00	73
+62	12	20	2015-12-28 08:00:00	84
+67	17	21	2015-12-14 13:25:00	15
+68	1	22	2015-12-23 15:36:00	27
+69	2	22	2015-12-13 12:14:00	24
+70	15	22	2015-12-14 12:34:00	311
+71	12	22	2015-12-09 11:37:00	21
+72	12	1	2015-12-10 00:00:00	0
+73	12	12	2015-12-12 00:00:00	0
+75	3	18	2015-12-11 00:00:00	0
+76	3	19	2015-12-08 00:00:00	0
+77	2	12	2015-12-30 00:00:00	0
+78	4	9	2015-12-10 00:00:00	0
+79	3	1	2016-01-03 00:00:00	0
+81	2	3	2016-01-09 14:00:00	0
+11	7	7	2015-12-03 07:40:00	78
+15	11	11	2015-12-01 11:00:00	79
+4	2	2	2015-11-30 12:00:00	17
+\.
+
+
+--
+-- TOC entry 2122 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: trip_lists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: h23
+--
+
+SELECT pg_catalog.setval('trip_lists_id_seq', 81, true);
+
+
+--
+-- TOC entry 1928 (class 2606 OID 16726)
+-- Name: administrator_login_key; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY account
+    ADD CONSTRAINT administrator_login_key UNIQUE (login);
+
+
+--
+-- TOC entry 1930 (class 2606 OID 16728)
+-- Name: administrator_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY account
+    ADD CONSTRAINT administrator_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1932 (class 2606 OID 16730)
+-- Name: bank_detail_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY bank_detail
+    ADD CONSTRAINT bank_detail_pkey PRIMARY KEY (currency_of_payment);
+
+
+--
+-- TOC entry 1936 (class 2606 OID 16732)
+-- Name: bill_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY bill
+    ADD CONSTRAINT bill_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1938 (class 2606 OID 16734)
+-- Name: request_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1943 (class 2606 OID 16736)
+-- Name: route_map_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY route_map
+    ADD CONSTRAINT route_map_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1945 (class 2606 OID 16738)
+-- Name: route_map_route_id_block_number_in_route_key; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY route_map
+    ADD CONSTRAINT route_map_route_id_block_number_in_route_key UNIQUE (route_id, block_number_in_route);
+
+
+--
+-- TOC entry 1940 (class 2606 OID 16740)
+-- Name: route_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY route
+    ADD CONSTRAINT route_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1947 (class 2606 OID 16742)
+-- Name: station_name_key; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY station
+    ADD CONSTRAINT station_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 1949 (class 2606 OID 16744)
+-- Name: station_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY station
+    ADD CONSTRAINT station_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1952 (class 2606 OID 16746)
+-- Name: station_to_station_block_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY station_to_station_block
+    ADD CONSTRAINT station_to_station_block_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1955 (class 2606 OID 16748)
+-- Name: train_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY train
+    ADD CONSTRAINT train_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1957 (class 2606 OID 16750)
+-- Name: train_train_number_key; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY train
+    ADD CONSTRAINT train_train_number_key UNIQUE (train_number);
+
+
+--
+-- TOC entry 1961 (class 2606 OID 16752)
+-- Name: trip_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: h23; Tablespace: 
+--
+
+ALTER TABLE ONLY trip_list
+    ADD CONSTRAINT trip_lists_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1933 (class 1259 OID 16753)
+-- Name: Bills_FK_Passenger_id; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX "Bills_FK_Passenger_id" ON bill USING btree (account_id);
+
+
+--
+-- TOC entry 1934 (class 1259 OID 16754)
+-- Name: Bills_FK_Trip_List_id; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX "Bills_FK_Trip_List_id" ON bill USING btree (trip_list_id);
+
+
+--
+-- TOC entry 1950 (class 1259 OID 16755)
+-- Name: fki_sts_block_dep_station_id_fk_station_id; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX fki_sts_block_dep_station_id_fk_station_id ON station_to_station_block USING btree (departure_station_id);
+
+
+--
+-- TOC entry 1941 (class 1259 OID 16756)
+-- Name: route_map_fk_sts_block_id; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX route_map_fk_sts_block_id ON route_map USING btree (station_to_station_block_id);
+
+
+--
+-- TOC entry 1953 (class 1259 OID 16757)
+-- Name: sts_block_dest_station_id_fk; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX sts_block_dest_station_id_fk ON station_to_station_block USING btree (destination_station_id);
+
+
+--
+-- TOC entry 1958 (class 1259 OID 16758)
+-- Name: trip_list_fk_route_id; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX trip_list_fk_route_id ON trip_list USING btree (route_id);
+
+
+--
+-- TOC entry 1959 (class 1259 OID 16759)
+-- Name: trip_lists_fk_train_id; Type: INDEX; Schema: public; Owner: h23; Tablespace: 
+--
+
+CREATE INDEX trip_lists_fk_train_id ON trip_list USING btree (train_id);
+
+
+--
+-- TOC entry 1962 (class 2606 OID 16760)
+-- Name: bill_account_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY bill
+    ADD CONSTRAINT bill_account_id_fkey FOREIGN KEY (account_id) REFERENCES account(id);
+
+
+--
+-- TOC entry 1963 (class 2606 OID 16765)
+-- Name: bill_trip_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY bill
+    ADD CONSTRAINT bill_trip_list_id_fkey FOREIGN KEY (trip_list_id) REFERENCES trip_list(id);
+
+
+--
+-- TOC entry 1964 (class 2606 OID 16770)
+-- Name: route_map_route_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY route_map
+    ADD CONSTRAINT route_map_route_id_fkey FOREIGN KEY (route_id) REFERENCES route(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1965 (class 2606 OID 16775)
+-- Name: route_map_station_to_station_block_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY route_map
+    ADD CONSTRAINT route_map_station_to_station_block_id_fkey FOREIGN KEY (station_to_station_block_id) REFERENCES station_to_station_block(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1966 (class 2606 OID 16780)
+-- Name: station_to_station_block_destination_station_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY station_to_station_block
+    ADD CONSTRAINT station_to_station_block_destination_station_id_fkey FOREIGN KEY (destination_station_id) REFERENCES station(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1967 (class 2606 OID 16785)
+-- Name: sts_block_dep_station_id_fk_station_id; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY station_to_station_block
+    ADD CONSTRAINT sts_block_dep_station_id_fk_station_id FOREIGN KEY (departure_station_id) REFERENCES station(id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1968 (class 2606 OID 16790)
+-- Name: trip_lists_route_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY trip_list
+    ADD CONSTRAINT trip_lists_route_id_fkey FOREIGN KEY (route_id) REFERENCES route(id);
+
+
+--
+-- TOC entry 1969 (class 2606 OID 16795)
+-- Name: trip_lists_train_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: h23
+--
+
+ALTER TABLE ONLY trip_list
+    ADD CONSTRAINT trip_lists_train_id_fkey FOREIGN KEY (train_id) REFERENCES train(id);
+
+
+--
+-- TOC entry 2103 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-01-11 06:20:45 MSK
+
+--
+-- PostgreSQL database dump complete
+--
+
