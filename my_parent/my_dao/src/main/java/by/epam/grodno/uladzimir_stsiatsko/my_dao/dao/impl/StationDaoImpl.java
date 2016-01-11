@@ -24,7 +24,7 @@ public class StationDaoImpl implements StationDao {
 
 	@Override
 	public List<Station> getStations(){
-		return jdbcTemplate.query("SELECT * FROM station;", new StationMapper());
+		return jdbcTemplate.query("SELECT * FROM station order by name;", new StationMapper());
 	}
 	
 	@Override

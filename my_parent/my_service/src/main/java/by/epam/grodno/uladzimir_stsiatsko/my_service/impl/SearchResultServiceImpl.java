@@ -13,15 +13,14 @@ import by.epam.grodno.uladzimir_stsiatsko.my_dao.model.SearchResult;
 import by.epam.grodno.uladzimir_stsiatsko.my_service.SearchResultService;
 
 /**
- * Search request parsing service.
- * At first the 'find' method is ran,
- * then it call one of the other methods
- * depending on what user have submitted.
- @author Uladzimir Stsiatsko
-*/
+ * Search request parsing service. At first the 'find' method is ran, then it
+ * call one of the other methods depending on what user have submitted.
+ * 
+ * @author Uladzimir Stsiatsko
+ */
 @Service
 public class SearchResultServiceImpl implements SearchResultService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(SearchResultServiceImpl.class);
 
 	@Autowired
@@ -29,6 +28,12 @@ public class SearchResultServiceImpl implements SearchResultService {
 
 	// argument field analysis for date presence
 	public List<SearchResult> find(Request request) {
+		if (request.getDepartureStation() == null || request.getDestinationStation() == null) {
+			throw new IllegalArgumentException("Station fields must not be null!");
+		}
+		if (request.getDepartureStation().equals(request.getDestinationStation())) {
+			throw new IllegalArgumentException("Stations must be different!");
+		}
 		if (request.getDepartureDate() == null) {
 			if (request.getArrivalDate() == null) {
 				LOGGER.debug("No dates specified.");
@@ -82,20 +87,23 @@ public class SearchResultServiceImpl implements SearchResultService {
 			LOGGER.debug("Calling SearchResultDao getRusultsAfterDates method.");
 			return srDao.getResultsAfterDates(request);
 		}
-		if ("<=".equals(request.getArrCondition())) {
-			LOGGER.debug("Calling SearchResultDao getRusultsBeforeDates method.");
-			return srDao.getResultsBeforeDates(request);
+		if ("<=".equals(request.getDepCondition())) {
+			if ("<=".equals(request.getArrCondition())) {
+				LOGGER.debug("Calling SearchResultDao getRusultsBeforeDates method.");
+				return srDao.getResultsBeforeDates(request);
+			}
+			LOGGER.debug("Calling SearchResultDao getRusultsNotBetweenDates method.");
+			return srDao.getResultsNotBetweenDates(request);
 		}
-		LOGGER.debug("Calling SearchResultDao getRusultsNotBetweenDates method.");
-		return srDao.getResultsNotBetweenDates(request);
+		throw new IllegalArgumentException("Illegal comparing condition state!");
 	}
 
-	//will be used in future
-	public List<SearchResult> getAll(long first, long count){
+	// will be used in future
+	public List<SearchResult> getAll(long first, long count) {
 		return srDao.getAll(first, count);
 	}
-	
-	//will be used in future
+
+	// will be used in future
 	public Integer getCount() {
 		return srDao.getCount();
 	}
